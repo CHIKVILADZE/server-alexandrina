@@ -6,7 +6,7 @@ const pool = require('./db');
 // midleware
 app.use(
   cors({
-    origin: 'https://server-alexandina.onrender.com',
+    origin: 'http://localhost:3000',
   })
 );
 app.use(express.json());
