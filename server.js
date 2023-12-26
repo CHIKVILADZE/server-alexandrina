@@ -15,7 +15,7 @@ app.post('/todos', async (req, res) => {
     const { title, description, status } = req.body;
 
     const newTodo = await pool.query(
-      'INSERT INTO todo (title, description, status) VALUES($1, $2, $3) RETURNING *',
+      'INSERT INTO todos (title, description, status) VALUES($1, $2, $3) RETURNING *',
       [title, description, status]
     );
     res.json(newTodo.rows[0]);
@@ -29,7 +29,7 @@ app.post('/todos', async (req, res) => {
 app.get('/todos', async (req, res) => {
   try {
     const allTodos = await pool.query(
-      'SELECT * FROM todo ORDER BY created_at DESC'
+      'SELECT * FROM todos ORDER BY created_at DESC'
     );
     res.json(allTodos.rows);
   } catch (err) {
@@ -42,7 +42,7 @@ app.get('/todos', async (req, res) => {
 app.get('/todos/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const todo = await pool.query('SELECT * FROM todo  WHERE todo_id = $1', [
+    const todo = await pool.query('SELECT * FROM todos  WHERE todo_id = $1', [
       id,
     ]);
     res.json(todo.rows);
@@ -59,7 +59,7 @@ app.put('/todos/:id', async (req, res) => {
     const { title, description, status } = req.body;
 
     const updateTodo = await pool.query(
-      'UPDATE todo SET title = $1, description = $2, status = $3 WHERE todo_id = $4',
+      'UPDATE todos SET title = $1, description = $2, status = $3 WHERE todo_id = $4',
       [title, description, status, id]
     );
 
@@ -75,9 +75,10 @@ app.put('/todos/:id', async (req, res) => {
 app.delete('/todos/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const deleteToto = await pool.query('DELETE FROM todo WHERE todo_id = $1', [
-      id,
-    ]);
+    const deleteToto = await pool.query(
+      'DELETE FROM todos WHERE todo_id = $1',
+      [id]
+    );
     res.json('Todo has deleted');
   } catch (err) {
     console.error(err.message);
