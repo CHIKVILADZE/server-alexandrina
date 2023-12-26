@@ -4,7 +4,11 @@ const cors = require('cors');
 const pool = require('./db');
 
 // midleware
-app.use(cors());
+app.use(
+  cors({
+    origin: 'https://server-alexandina.onrender.com',
+  })
+);
 app.use(express.json());
 // Routes //
 
