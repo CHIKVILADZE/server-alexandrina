@@ -8,7 +8,7 @@ const port = process.env.port || 5000;
 // midleware
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://client-alexandrina.vercel.app',
   })
 );
 app.use(express.json());
