@@ -1,7 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
 const pool = require('./db');
+const port = process.env.port || 5000;
 
 // midleware
 app.use(
@@ -89,6 +91,6 @@ app.delete('/todos/:id', async (req, res) => {
   }
 });
 
-app.listen(5000, () => {
+app.listen(port, () => {
   console.log('Server start on port 5000');
 });
